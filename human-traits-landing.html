@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Traits</title>
+    <style>
+        @font-face {
+            font-family: 'Annie Use Your Telescope';
+            src: url('AnnieUseYourTelescope-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Annie Use Your Telescope', cursive, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            text-align: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 999;
+        }
+
+        .hero-title.scrolled {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            top: 45px;
+            transform: translate(-50%, 0);
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 35px 20px;
+            z-index: 998;
+            border-bottom: 2px solid #000000;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .header.visible {
+            opacity: 1;
+        }
+
+        .burger-menu {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .burger-line {
+            width: 100%;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active .burger-line {
+            background-color: #ffffff;
+        }
+
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: translateY(10px) rotate(45deg);
+        }
+
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: translateY(-10px) rotate(-45deg);
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: #000000;
+            color: #ffffff;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            padding: 80px 30px 30px;
+        }
+
+        .side-menu.open {
+            left: 0;
+        }
+
+        .side-menu ul {
+            list-style: none;
+        }
+
+        .side-menu li {
+            margin: 25px 0;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .side-menu li:hover {
+            transform: translateX(10px);
+        }
+
+        .content {
+            min-height: 200vh;
+            padding: 120px 20px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin: 60px 0;
+        }
+
+        .column {
+            line-height: 1.8;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+        }
+
+        .column h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 20px;
+            border-bottom: 3px solid #000000;
+            padding-bottom: 10px;
+        }
+
+        .column p {
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .burger-menu {
+                top: 15px;
+                left: 15px;
+            }
+
+            .content {
+                padding: 80px 15px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="burger-menu" id="burgerMenu">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+    </div>
+
+    <nav class="side-menu" id="sideMenu">
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Traits</li>
+            <li>Research</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+
+    <div class="hero" id="hero">
+        <h1 class="hero-title" id="heroTitle">Human Traits</h1>
+    </div>
+
+    <header class="header" id="header"></header>
+
+    <div class="content">
+        <div class="two-column">
+            <div class="column">
+                <h2>Welcome</h2>
+                <p>Welcome to a space dedicated to exploring the fascinating complexities of human nature. Here we delve into the characteristics that make us uniquely human.</p>
+                <p>From compassion to creativity, resilience to reason, the traits that define humanity are as diverse as they are profound.</p>
+            </div>
+            <div class="column">
+                <h2>Discovery</h2>
+                <p>Each quality tells a story of evolution, culture, and individual experience. These traits have been shaped over millennia, influenced by our environment, societies, and personal journeys.</p>
+                <p>Understanding these fundamental aspects helps us navigate the complexity of human interaction and self-awareness.</p>
+            </div>
+        </div>
+
+        <div class="two-column">
+            <div class="column">
+                <h2>Understanding</h2>
+                <p>By understanding these traits, we gain insight into ourselves and others, fostering connection and empathy in an ever-changing world.</p>
+                <p>The exploration of human traits is an endless journey, revealing new dimensions of what it means to be human.</p>
+            </div>
+            <div class="column">
+                <h2>Connection</h2>
+                <p>Our shared humanity is defined by these traits. They connect us across cultures, generations, and experiences, creating a tapestry of human existence.</p>
+                <p>Through understanding, we build bridges of compassion and mutual respect that transcend our differences.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const hero = document.getElementById('hero');
+        const header = document.getElementById('header');
+        const heroTitle = document.getElementById('heroTitle');
+        const burgerMenu = document.getElementById('burgerMenu');
+        const sideMenu = document.getElementById('sideMenu');
+
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const heroHeight = hero.offsetHeight;
+
+            if (scrollPosition > heroHeight * 0.2) {
+                header.classList.add('visible');
+                heroTitle.classList.add('scrolled');
+            } else {
+                header.classList.remove('visible');
+                heroTitle.classList.remove('scrolled');
+            }
+        });
+
+        burgerMenu.addEventListener('click', () => {
+            burgerMenu.classList.toggle('active');
+            sideMenu.classList.toggle('open');
+        });
+
+        sideMenu.addEventListener('click', (e) => {
+            if (e.target.tagName === 'LI') {
+                burgerMenu.classList.remove('active');
+                sideMenu.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
